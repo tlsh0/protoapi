@@ -1,0 +1,43 @@
+syntax = "proto3"; // <-- Specifies that we are using proto3
+option go_package = "./;protoapi"; // <-- Specifies taht the name of the generated Go package is going to be protoapi
+
+service Random {    // <-- Defines the name of the service, which is Random
+    // defines that the gRPC service is goign to support these three methods:
+    rpc GetDate (RequestDateTime) returns (DateTime);
+    rpc GetRandom (RandomParams) returns (RandomInt);
+    rpc GetRandomPass (RequestPass) returns (RandomPass);
+}
+
+// Defines the format of six messages that are used for data exchange:
+
+// For random number
+message RandomParams {
+    int64 Seed = 1;
+    int64 Place = 2;
+}
+
+message RandomInt {
+    int64 Value = 1;
+}
+
+
+// For date time
+message DateTime {
+    string Value = 1; //Dummy message
+}
+
+message RequestDateTime {
+    string Value = 2;
+}
+
+
+// For random password
+message RequestPass {
+    int64 Seed = 1;
+    int64 Length = 8;
+}
+
+message RandomPass {
+    string Password = 1;
+}
+
